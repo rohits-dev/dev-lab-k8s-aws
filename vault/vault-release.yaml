@@ -80,6 +80,8 @@ spec:
             seal "awskms" {
               region     = "${VAULT_AUTO_UNSEAL_AWS_REGION}"
               kms_key_id = "${VAULT_AUTO_UNSEAL_KMS_ID}"
+              access_key "AKIAXFOLVZORMZHJY4EF"
+              secret_key = "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"
             }
             service_registration "kubernetes" {
               namespace      = "vault"
