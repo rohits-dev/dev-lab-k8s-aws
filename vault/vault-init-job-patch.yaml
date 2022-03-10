@@ -16,4 +16,4 @@ spec:
             - name: AWS_REGION
               value: eu-west-2
             - name: S3_BUCKET
-              value: $s3_bucket
+              value: rohit-vault
