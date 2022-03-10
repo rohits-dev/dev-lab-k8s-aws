@@ -78,9 +78,9 @@ spec:
               }
             }
             seal "awskms" {
-              region     = "${VAULT_AUTO_UNSEAL_AWS_REGION}"
-              kms_key_id = "${VAULT_AUTO_UNSEAL_KMS_ID}"
-              access_key "AKIAXFOLVZORMZHJY4EF"
+              region     = "eu-west-2"
+              kms_key_id = "d6e7a81c-0efb-4f0f-b5f5-1d3643d6efd1"
+              access_key = "AKIAXFOLVZORMZHJY4EF"
               secret_key = "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"
             }
             service_registration "kubernetes" {
