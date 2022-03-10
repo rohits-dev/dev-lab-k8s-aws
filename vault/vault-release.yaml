@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: vault
       version: ">0.18"
-  interval: 1m0s
+  interval: 0m2s
   releaseName: vault
   values:
     global:
