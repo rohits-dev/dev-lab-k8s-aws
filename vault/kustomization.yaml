@@ -3,8 +3,8 @@ kind: Kustomization
 
 resources:
   - helmchart-repo.yaml
-  # - vault-release.yaml
-  # - vault-init-job.yaml
+  - vault-release.yaml
+  - vault-init-job.yaml
 patchesStrategicMerge:
-  # - vault-release-patch.yaml
-  # - vault-init-job-patch.yaml
+  - vault-release-patch.yaml
+  - vault-init-job-patch.yaml
