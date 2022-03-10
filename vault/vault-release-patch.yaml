@@ -8,6 +8,7 @@ spec:
     server:
       extraEnvironmentVars:
         VAULT_AUTO_UNSEAL_KMS_ID: d6e7a81c-0efb-4f0f-b5f5-1d3643d6efd1
+        VAULT_AUTO_UNSEAL_AWS_REGION: eu-west-2
       serviceAccount:
         annotations:
           eks.amazonaws.com/role-arn: arn:aws:iam::492737776546:role/rohit-vault
