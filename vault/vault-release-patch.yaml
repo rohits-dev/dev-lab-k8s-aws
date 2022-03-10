@@ -13,4 +13,4 @@ spec:
           eks.amazonaws.com/role-arn: arn:aws:iam::492737776546:role/rohit-vault
     ui:
       annotations:
-        external-dns.alpha.kubernetes.io/hostname: vault.{resource_prefix}.local
+        external-dns.alpha.kubernetes.io/hostname: vault.rohit.local
