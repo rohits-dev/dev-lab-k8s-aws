@@ -11,7 +11,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: vault
-      version: ">0.18"
+      version: "0.19"
   interval: 0m2s
   releaseName: vault
   values:
