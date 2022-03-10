@@ -77,12 +77,12 @@ spec:
                 server_stabilization_time = "10s"
               }
             }
-            seal "awskms" {
-              region     = "eu-west-2"
-              kms_key_id = "${VAULT_AUTO_UNSEAL_KMS_ID}"
-              access_key = "AKIAXFOLVZORMZHJY4EF"
-              secret_key = "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"
-            }
+            # seal "awskms" {
+            #   region     = "eu-west-2"
+            #   kms_key_id = "${VAULT_AUTO_UNSEAL_KMS_ID}"
+            #   access_key = "AKIAXFOLVZORMZHJY4EF"
+            #   secret_key = "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"
+            # }
             service_registration "kubernetes" {
               namespace      = "vault"
               pod_name       = "${VAULT_K8S_POD_NAME}"
