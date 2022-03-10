@@ -4,6 +4,3 @@ kind: Kustomization
 resources:
 - gotk-sync.yaml
 - gotk-components.yaml
-patchesStrategicMerge:
-- patch-psp.yaml
-- patch-sops.yaml
