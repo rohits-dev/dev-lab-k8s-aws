@@ -116,4 +116,4 @@ spec:
       enabled: true
       externalPort: 8200
       serviceNodePort: null
-      serviceType: Loadbalancer
+      serviceType: LoadBalancer
