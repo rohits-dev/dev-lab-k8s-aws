@@ -78,12 +78,7 @@ spec:
                 server_stabilization_time = "10s"
               }
             }
-            # seal "awskms" {
-            #   region     = "eu-west-2"
-            #   kms_key_id = "${VAULT_AUTO_UNSEAL_KMS_ID}"
-            #   access_key = "AKIAXFOLVZORMZHJY4EF"
-            #   secret_key = "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"
-            # }
+
             service_registration "kubernetes" {
               namespace      = "vault"
               pod_name       = "${VAULT_K8S_POD_NAME}"
@@ -115,10 +110,10 @@ spec:
         enabled: false
     ui:
       annotations:
-      # service.beta.kubernetes.io/aws-load-balancer-internal: "true"
-      # service.beta.kubernetes.io/aws-load-balancer-type: nlb
-      # service.beta.kubernetes.io/load-balancer-source-ranges: 10.0.0.0/8
+        service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+        service.beta.kubernetes.io/aws-load-balancer-type: nlb
+        service.beta.kubernetes.io/load-balancer-source-ranges: 10.0.0.0/8
       enabled: true
       externalPort: 8200
       serviceNodePort: null
-      serviceType: ClusterIP
+      serviceType: Loadbalancer
