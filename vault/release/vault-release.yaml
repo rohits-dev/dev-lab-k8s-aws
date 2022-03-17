@@ -114,6 +114,6 @@ spec:
         service.beta.kubernetes.io/aws-load-balancer-type: nlb
         service.beta.kubernetes.io/load-balancer-source-ranges: 10.0.0.0/8
       enabled: true
-      externalPort: 8200
+      externalPort: 443
       serviceNodePort: null
       serviceType: LoadBalancer
