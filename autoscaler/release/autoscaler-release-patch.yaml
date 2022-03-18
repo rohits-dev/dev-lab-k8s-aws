@@ -13,6 +13,7 @@ spec:
     autoDiscovery:
       clusterName: rohit-eks-1
     awsRegion: eu-west-2
-    serviceAccount:
-      annotations:
-        eks.amazonaws.com/role-arn: arn:aws:iam::492737776546:role/rohit-cluster-autoscaler
+    rbac:
+      serviceAccount:
+        annotations:
+          eks.amazonaws.com/role-arn: arn:aws:iam::492737776546:role/rohit-cluster-autoscaler
