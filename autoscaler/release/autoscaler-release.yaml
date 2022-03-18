@@ -33,5 +33,5 @@ spec:
         name: "cluster-autoscaler"
         # rbac.serviceAccount.automountServiceAccountToken -- Automount API credentials for a Service Account.
         automountServiceAccountToken: true
-    leader-elect: false
+    #leader-elect: false
     sslCertPath: /etc/ssl/certs/ca-bundle.crt
