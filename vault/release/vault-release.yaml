@@ -19,6 +19,8 @@ spec:
     global:
       enabled: true
       tlsDisable: false
+    csi:
+      enabled: true
     injector:
       enabled: true
       image:
