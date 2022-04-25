@@ -9,6 +9,8 @@ data:
     #!/bin/bash
 
     yum install jq -y;
+    yum -y install vault;
+
     echo "give vault pods to come up -- in 10 seconds"
     sleep 10
     echo "Get vault Status"
@@ -32,10 +34,63 @@ data:
         echo "Copy to S3"
         aws s3 cp  ./vault_secret.json s3://$S3_BUCKET/vault/
     else
-        
         echo "failing the script so that job runs once more"
         exit 1
     fi
+
+    echo "setup pki engine"
+    export VAULT_TOKEN=$(jq -r '.root_token | values' vault_secret.json)
+
+    #enable pki engine
+    vault secrets enable -tls-skip-verify pki
+    vault secrets tune -tls-skip-verify -max-lease-ttl=8760h pki
+
+
+    # Generate root CA
+    vault write -tls-skip-verify -field=certificate pki/root/generate/internal \
+        common_name="local" \
+        ttl=87600h > CA_cert.crt
+
+
+    vault write -tls-skip-verify pki/config/urls \
+        issuing_certificates="$VAULT_ADDR/v1/pki/ca" \
+        crl_distribution_points="$VAULT_ADDR/v1/pki/crl"
+
+    # Generate Intermediate
+    vault secrets enable -tls-skip-verify -path=pki_int pki
+
+    vault write -tls-skip-verify -format=json pki_int/intermediate/generate/internal \
+        common_name="local Intermediate Authority" \
+        | jq -r '.data.csr' > pki_intermediate.csr
+
+    vault write -tls-skip-verify -format=json pki/root/sign-intermediate csr=@pki_intermediate.csr \
+        format=pem_bundle ttl="43800h" \
+        | jq -r '.data.certificate' > intermediate.cert.pem
+
+    vault write -tls-skip-verify pki_int/intermediate/set-signed certificate=@intermediate.cert.pem
+
+    # Create role
+    vault write -tls-skip-verify pki_int/roles/rohit-local-com \
+        allowed_domains="local" \
+        allow_subdomains=true \
+        max_ttl="720h"
+
+
+
+    #enable kubernetes auth
+    vault auth enable -tls-skip-verify kubernetes
+
+    # csi
+    vault secrets enable -tls-skip-verify -path=kv kv 
+
+
+
+    vault write -tls-skip-verify auth/kubernetes/config \
+        issuer="https://kubernetes.default.svc.cluster.local" \
+        token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
+        kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443" \
+        kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+
 ---
 apiVersion: batch/v1
 kind: Job
