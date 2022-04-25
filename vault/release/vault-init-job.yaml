@@ -13,6 +13,8 @@ data:
     yum -y install shadow-utils
     yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
     yum -y install vault;
+    vault --version
+    yum -y reinstall vault;
 
     echo "give vault pods to come up -- in 10 seconds"
     sleep 10
@@ -44,7 +46,7 @@ data:
     echo "setup pki engine"
     aws s3 cp s3://rohit-vault/vault/vault_secret.json vault_secret.json 
     export VAULT_TOKEN=$(jq -r '.root_token | values' vault_secret.json)
-    export VAULT_ADDR=https://vault:8200
+    export VAULT_ADDR=https://vault-internal:8200
 
     #enable pki engine
     vault secrets enable -tls-skip-verify pki
