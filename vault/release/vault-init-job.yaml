@@ -44,7 +44,7 @@ data:
         echo "failing the script so that job runs once more"
         exit 1
     fi
-
+    sleep 20
     echo "setup pki engine"
     aws s3 cp s3://rohit-vault/vault/vault_secret.json vault_secret.json 
     export VAULT_TOKEN=$(jq -r '.root_token | values' vault_secret.json)
