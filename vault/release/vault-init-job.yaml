@@ -50,6 +50,8 @@ data:
     export VAULT_TOKEN=$(jq -r '.root_token | values' vault_secret.json)
     export VAULT_ADDR=https://vault-internal:8200
 
+    echo "vault token $VAULT_TOKEN"
+
     #enable pki engine
     vault secrets enable -tls-skip-verify pki
     vault secrets tune -tls-skip-verify -max-lease-ttl=8760h pki
