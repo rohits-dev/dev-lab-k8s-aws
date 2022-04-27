@@ -5,7 +5,7 @@ metadata:
   # namespace: cert-manager
 spec:
   vault:
-    path: pki_int/issue/local
+    path: pki_int/sign/local
     auth:
       kubernetes:
         role: certs-creator
