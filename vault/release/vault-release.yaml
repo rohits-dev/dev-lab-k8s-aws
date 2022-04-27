@@ -87,7 +87,7 @@ spec:
             }
           enabled: true
           setNodeId: true
-        replicas: 1
+        replicas: 2
       image:
         repository: hashicorp/vault
         tag: 1.9.4

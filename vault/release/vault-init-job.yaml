@@ -46,9 +46,12 @@ data:
     fi
     sleep 60
     echo "setup pki engine"
-    aws s3 cp s3://rohit-vault/vault/vault_secret.json vault_secret.json 
+    aws s3 cp s3://$S3_BUCKET/vault/vault_secret.json vault_secret.json 
     export VAULT_TOKEN=$(jq -r '.root_token | values' vault_secret.json)
     export VAULT_ADDR=https://vault-internal:8200
+    echo "secret json"
+    cat vault_secret.json
+    echo "vault token $VAULT_TOKEN"
 
     #enable pki engine
     vault secrets enable -tls-skip-verify pki
@@ -92,14 +95,24 @@ data:
     # csi
     vault secrets enable -tls-skip-verify -path=kv kv 
 
-
-
     vault write -tls-skip-verify auth/kubernetes/config \
         issuer="https://kubernetes.default.svc.cluster.local" \
         token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
         kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443" \
         kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    # cert-manager role
 
+    vault policy write -tls-skip-verify allow-create-cert - <<EOF
+    path "pki_int/sign/*" {
+      capabilities = ["update"]
+    }
+    EOF
+
+    vault write -tls-skip-verify auth/kubernetes/role/certs-creator \
+        bound_service_account_names=vault-issuer \
+        bound_service_account_namespaces=cert-manager \
+        policies=allow-create-cert \
+        ttl=20m
 ---
 apiVersion: batch/v1
 kind: Job
