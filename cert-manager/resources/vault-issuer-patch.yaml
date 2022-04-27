@@ -1,0 +1,21 @@
+    #############################################################################
+    #############################################################################
+    ######### Managed by Terraform, not safe to change ##########################
+    #############################################################################
+    #############################################################################
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: vault-issuer
+  # namespace: cert-manager
+spec:
+  vault:
+    server: https://vault.rohit.local
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURLRENDQWhDZ0F3SUJBZ0lRQjM5V3VGOWRRM0FWYlVieFFBUm5VREFOQmdrcWhraUc5dzBCQVFzRkFEQXUKTVJZd0ZBWURWUVFLRXcxTmVTQk1iMk5oYkN3Z1NXNWpNUlF3RWdZRFZRUURFd3R5YjJocGRDNXNiMk5oYkRBZQpGdzB5TWpBME1qWXdPRFE0TWpkYUZ3MHlNekEwTWpZd09EUTRNamRhTUM0eEZqQVVCZ05WQkFvVERVMTVJRXh2ClkyRnNMQ0JKYm1NeEZEQVNCZ05WQkFNVEMzSnZhR2wwTG14dlkyRnNNSUlCSWpBTkJna3Foa2lHOXcwQkFRRUYKQUFPQ0FROEFNSUlCQ2dLQ0FRRUF0OW5Rd2NjVVVwUmhmd1RXUVlVSVN3bU5IeXhUd1R1eDVuaVZLaVNWK2ttWgpTSUU4aDBhME54QTlWZTg1bUJuTmZWb2dGbko5OXEzQm1mRWR0by9KMlEwRFRXdnVNOGhyeFlMV251OUl2R2svCjBWUk01c3NmQzBJYkNyOEkyYk1zZjRrb0VJS2pjMW5FTlhuVWt3YlhLOG4vcW1xNXBuRzZQVmpjVDNZd09YNW4KclkxWEE2Nkp0QnhzTEJvWE1JcERCZkJqSk45Vm11WWprU0w5OVJQMjNoYlk5bzZ6QVVuRWlHclR2SnB0QkM0TwozM1YvSktZdkp3ZWExeFp2TnlmTTdDR0hwNU5hb0lyWXhyZzNUbzA3eDlzQkwvTTBJbWp0dzZYZGx4OEhQWFpWCmV0NjdsQ2RKOSt6QVV0ZUJTTXRVQ3NaSmtuUlNIVEZMWEZJMXVmMGhtUUlEQVFBQm8wSXdRREFPQmdOVkhROEIKQWY4RUJBTUNBcVF3RHdZRFZSMFRBUUgvQkFVd0F3RUIvekFkQmdOVkhRNEVGZ1FVVm9JWUlIQ2d5VEdiaG9BSwpZVG9IN0ZKMi9Zd3dEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBQWx1TExwRXdnOFd6WUxpTmhiek5hdkVGc0JSCmFrNW5KanVvT25kemZhMWtRaVppYUtZa0V0UmVCMElXNVZBWlhaVzVMWnREZ0p6M3UyUXp4NGJabzREMEszdGsKemVWdmN4UzBnR1hCd1R3eVBOZW94OVFodzFIY3FOaHVXZ0FobEZBNyt6NldRYU13OHc5RWU2V1d4WGxLMzFFaApZa3NCRFdsdXFlVzliNktmWjVKemN3Y0o4ZzBZekI2UElJZlh6WHAxSkl1VSsvdXMxdnhDcC9Pcm5mRFRrUXFNCjlZbk5RL3ZYZU1naXllQks5ckxDell0YlllVSt6VTArNnoyaHNTMUVXYWVuWDQyOXV6T1lGaGpSYndNeDNxV1cKVFFHd29BVGFtQUszWmh5RGFxV2J3bTVZRHZmSHYwUld2N0FWOFZMcFhmVWdHd2R4RVFHVVNrT2hxRzA9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    auth:
+      kubernetes:
+        role: certs-creator
+        mountPath: /v1/auth/kubernetes
+        secretRef:
+          name: vault-issuer-token-mxj7l
+          key: token
