@@ -47,6 +47,8 @@ data:
     sleep 60
     echo "setup pki engine"
     aws s3 cp s3://$S3_BUCKET/vault/vault_secret.json vault_secret.json 
+
+    ll
     export VAULT_TOKEN=$(jq -r '.root_token | values' vault_secret.json)
     export VAULT_ADDR=https://vault-internal:8200
     echo "secret.json"
