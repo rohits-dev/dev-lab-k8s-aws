@@ -100,10 +100,10 @@ data:
     # cert-manager role
 
     vault policy write -tls-skip-verify allow-create-cert - <<EOF
-    path "pki_int/issue/*" {
-      capabilities = ["update"]
-    }
-    EOF
+path "pki_int/sign/*" {
+  capabilities = ["update"]
+}
+EOF
 
     vault write -tls-skip-verify auth/kubernetes/role/certs-creator \
         bound_service_account_names=vault-issuer \
