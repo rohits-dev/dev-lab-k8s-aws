@@ -215,7 +215,7 @@ data:
         common_name="Vault Intermediate Authority 2 External CA" \
         | jq -r '.data.csr' > pki_intermediate.csr
 
-    vault write -tls-skip-verify -format=json pki-external/v1/ica1/v1/root/sign-intermediate csr=@pki_intermediate.csr \
+    vault write -tls-skip-verify -format=json pki-external/v1/ica1/v1/intermediate/sign-intermediate csr=@pki_intermediate.csr \
         format=pem_bundle ttl="43800h" \
         | jq -r '.data.certificate' > intermediate.cert.pem
 
