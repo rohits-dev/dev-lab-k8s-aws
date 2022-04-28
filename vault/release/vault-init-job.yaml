@@ -7,42 +7,6 @@ metadata:
 data:
   extfile.cnf: |-
     basicConstraints=CA:TRUE
-  openssl-ca.conf: |-
-    ###################################################################
-    [ ca ]
-    default_ca          = CA_default      # The default ca section
-    [ CA_default ]
-    default_days        = 730         # How long to certify for
-    default_crl_days    = 30           # How long before next CRL
-    default_md          = sha256       # Use public key default MD
-    copy_extensions     = copy 
-
-    base_dir      = .
-    certificate   = /mnt/tls-ca/tls.crt   # The CA certifcate
-    private_key   = /mnt/tls-ca/tls.key   # The CA private key
-    new_certs_dir = $base_dir/  # Location for new certs after signing
-    database      = $base_dir/index.txt    # Database index file
-    serial        = $base_dir/serial.txt   # The current serial number
-
-    unique_subject = no  # Set to 'no' to allow creation of
-                        # several certificates with same subject.
-
-    [ v3_intermediate_ca ]
-    # Extensions for a typical intermediate CA (`man x509v3_config`).
-    subjectKeyIdentifier = hash
-    authorityKeyIdentifier = keyid:always,issuer
-    basicConstraints = critical, CA:true, pathlen:0
-    keyUsage = critical, digitalSignature, cRLSign, keyCertSign
-
-    [ signing_policy ]
-    countryName            = optional
-    stateOrProvinceName    = optional
-    localityName           = optional
-    organizationName       = optional
-    organizationalUnitName = optional
-    commonName             = supplied
-    emailAddress           = optional
-
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -90,7 +54,7 @@ data:
         echo "failing the script so that job runs once more"
         exit 1
     fi
-    sleep 5
+    sleep 80
     echo "setup pki engine"
     aws s3 cp s3://$S3_BUCKET/vault/vault_secret.json vault_secret.json 
     export VAULT_TOKEN=$(jq -r '.root_token | values' vault_secret.json)
@@ -193,12 +157,6 @@ data:
         | jq -r '.data.csr' > pki_intermediate.csr
 
     #sign csr with external root ca
-
-    echo '01' > serial.txt
-    touch index.txt
-    # openssl ca -batch -config /mnt/openssl-ca-conf/openssl-ca.conf \
-    #   -policy signing_policy -extensions v3_intermediate_ca \
-    #   -out signed-crt.pem -infiles pki_intermediate.csr
 
     openssl x509 -req -in pki_intermediate.csr \
       -CA /mnt/tls-ca/tls.crt -CAkey /mnt/tls-ca/tls.key \
