@@ -5,6 +5,8 @@ metadata:
   name: vault-init-openssl-ca-conf
   namespace: vault
 data:
+  extfile.cnf: |-
+    basicConstraints=CA:TRUE
   openssl-ca.conf: |-
     ###################################################################
     [ ca ]
@@ -194,13 +196,17 @@ data:
 
     echo '01' > serial.txt
     touch index.txt
-    openssl ca -batch -config /mnt/openssl-ca-conf/openssl-ca.conf \
-      -policy signing_policy -extensions v3_intermediate_ca \
-      -out signed-crt.pem -infiles pki_intermediate.csr
+    # openssl ca -batch -config /mnt/openssl-ca-conf/openssl-ca.conf \
+    #   -policy signing_policy -extensions v3_intermediate_ca \
+    #   -out signed-crt.pem -infiles pki_intermediate.csr
 
-    vault write -tls-skip-verify pki-external/v1/ica1/v1/intermediate/set-signed certificate=@signed-crt.pem
+    openssl x509 -req -in pki_intermediate.csr \
+      -CA /mnt/tls-ca/tls.crt -CAkey /mnt/tls-ca/tls.key \
+      -extfile /mnt/openssl-ca-conf/extfile.cnf -CAcreateserial -out intermediate-cert.pem
 
-    vault write -tls-skip-verify pki/config/urls \
+    vault write -tls-skip-verify pki-external/v1/ica1/v1/root/set-signed certificate=@signed-crt.pem
+
+    vault write -tls-skip-verify pki-external/v1/ica1/v1/config/urls \
         issuing_certificates="$VAULT_ADDR/v1/pki-external/v1/ica1/v1/ca" \
         crl_distribution_points="$VAULT_ADDR/v1/pki-external/v1/ica1/v1/crl"
 
