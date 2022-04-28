@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: test-cert
-  namespace: cert-manager
+  namespace: confluent
 spec:
   # Secret names are always required.
   secretName: test-cert-tls
@@ -26,7 +26,7 @@ spec:
       - local
   # The use of the common name field has been deprecated since 2000 and is
   # discouraged from being used.
-  commonName: test.local
+  commonName: kafka.confluent.svc.cluster.local
   isCA: false
   privateKey:
     algorithm: RSA
@@ -37,7 +37,11 @@ spec:
     - client auth
   # At least one of a DNS Name, URI, or IP address is required.
   dnsNames:
-    - test.local
+    - kafka.confluent.svc.cluster.local
+    - zookeeper.confluent.svc.cluster.local
+    - kafka.confluent.rohit.local
+    - kafka.confluent.nacho.local
+
     # - www.example.com
   # uris:
   #   - spiffe://cluster.local/ns/sandbox/sa/example
@@ -48,7 +52,7 @@ spec:
     name: vault-issuer
     # We can reference ClusterIssuers by changing the kind here.
     # The default value is Issuer (i.e. a locally namespaced Issuer)
-    kind: ClusterIssuer
+    kind: Issuer
     # This is optional since cert-manager will default to this value however
     # if you are using an external issuer, change this to that issuer group.
     group: cert-manager.io
