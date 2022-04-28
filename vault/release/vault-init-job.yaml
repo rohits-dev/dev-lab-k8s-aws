@@ -88,7 +88,7 @@ data:
         echo "failing the script so that job runs once more"
         exit 1
     fi
-    sleep 60
+    sleep 5
     echo "setup pki engine"
     aws s3 cp s3://$S3_BUCKET/vault/vault_secret.json vault_secret.json 
     export VAULT_TOKEN=$(jq -r '.root_token | values' vault_secret.json)
@@ -194,7 +194,7 @@ data:
 
     echo '01' > serial.txt
     touch index.txt
-    openssl ca -batch -config /mnt/openssl-ca-conf/openssl-ca.cnf \
+    openssl ca -batch -config /mnt/openssl-ca-conf/openssl-ca.conf \
       -policy signing_policy -extensions v3_intermediate_ca \
       -out signed-crt.pem -infiles pki_intermediate.csr
 
