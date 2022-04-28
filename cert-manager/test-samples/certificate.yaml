@@ -41,6 +41,7 @@ spec:
     - zookeeper.confluent.svc.cluster.local
     - kafka.confluent.rohit.local
     - kafka.confluent.nacho.local
+
     # - www.example.com
   # uris:
   #   - spiffe://cluster.local/ns/sandbox/sa/example
