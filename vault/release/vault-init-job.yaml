@@ -204,7 +204,7 @@ data:
       -CA /mnt/tls-ca/tls.crt -CAkey /mnt/tls-ca/tls.key \
       -extfile /mnt/openssl-ca-conf/extfile.cnf -CAcreateserial -CAserial tls-ca.srl -out intermediate-cert.pem
 
-    vault write -tls-skip-verify pki-external/v1/ica1/v1/root/set-signed certificate=@intermediate-cert.pem
+    vault write -tls-skip-verify pki-external/v1/ica1/v1/intermediate/set-signed certificate=@intermediate-cert.pem
 
     vault write -tls-skip-verify pki-external/v1/ica1/v1/config/urls \
         issuing_certificates="$VAULT_ADDR/v1/pki-external/v1/ica1/v1/ca" \
