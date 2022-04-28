@@ -149,7 +149,7 @@ data:
     ## enable pki-external path with pki engine
 
     vault secrets enable -tls-skip-verify -path=pki-external/v1/ica1/v1 -default-lease-ttl=1h -max-lease-ttl=94608000s pki
-    vault secrets tune -tls-skip-verify -default-lease-ttl=1h -max-lease-ttl=94608000s pki-external/v1/ica1/v1 -description=pki-external-ca
+
 
     vault write -tls-skip-verify -format=json pki-external/v1/ica1/v1/intermediate/generate/internal \
         common_name="Local Intermediate Authority External CA" \
