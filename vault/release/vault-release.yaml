@@ -71,6 +71,12 @@ spec:
                 leader_client_cert_file = "/vault/userconfig/tls-server/tls.crt"
                 leader_client_key_file = "/vault/userconfig/tls-server/tls.key"          
               }
+              retry_join {
+                leader_api_addr = "https://vault-2.vault-internal:8200"
+                leader_ca_cert_file = "/vault/userconfig/tls-ca/tls.crt"
+                leader_client_cert_file = "/vault/userconfig/tls-server/tls.crt"
+                leader_client_key_file = "/vault/userconfig/tls-server/tls.key"          
+              }
               autopilot {
                 cleanup_dead_servers = "true"
                 last_contact_threshold = "200ms"
@@ -87,17 +93,21 @@ spec:
             }
           enabled: true
           setNodeId: true
-        replicas: 2
+        replicas: 3
       image:
         repository: hashicorp/vault
         tag: 1.9.4
       livenessProbe:
         enabled: true
-        initialDelaySeconds: 60
+        # initialDelaySeconds: 60
         path: /v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204
+        failureThreshold: 5
+        # timeoutSeconds: 10
       readinessProbe:
         enabled: true
         path: /v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204
+        failureThreshold: 5
+        # timeoutSeconds: 10
       resources:
         limits:
           cpu: 2000m
