@@ -92,13 +92,13 @@ spec:
         repository: hashicorp/vault
         tag: 1.9.4
       livenessProbe:
-        enabled: false
+        enabled: true
         initialDelaySeconds: 60
         path: /v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204
         failureThreshold: 5
         timeoutSeconds: 10
       readinessProbe:
-        enabled: false
+        enabled: true
         path: /v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204
         failureThreshold: 5
         timeoutSeconds: 10
