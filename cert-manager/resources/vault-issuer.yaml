@@ -8,6 +8,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: cert-manager-token
+  namespace: confluent
   annotations:
     kubernetes.io/service-account.name: cert-manager
 type: kubernetes.io/service-account-token
