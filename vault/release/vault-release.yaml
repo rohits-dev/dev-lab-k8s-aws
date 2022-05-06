@@ -92,15 +92,16 @@ spec:
         repository: hashicorp/vault
         tag: 1.9.4
       livenessProbe:
-        enabled: true
+        enabled: false
         initialDelaySeconds: 60
         path: /v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204
         failureThreshold: 5
+        timeoutSeconds: 10
       readinessProbe:
-        enabled: true
+        enabled: false
         path: /v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204
         failureThreshold: 5
-
+        timeoutSeconds: 10
       resources:
         limits:
           cpu: 2000m
