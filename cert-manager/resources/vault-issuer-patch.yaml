@@ -1,10 +1,10 @@
-    #############################################################################
-    #############################################################################
-    ######### Managed by Terraform, not safe to change ##########################
-    #############################################################################
-    #############################################################################
+#############################################################################
+#############################################################################
+######### Managed by Terraform, not safe to change ##########################
+#############################################################################
+#############################################################################
 apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
+kind: Issuer
 metadata:
   name: vault-issuer
   # namespace: cert-manager
@@ -12,4 +12,3 @@ spec:
   vault:
     server: https://vault.rohit.local
     caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURLVENDQWhHZ0F3SUJBZ0lSQUs3MW5JTmpnU25uY2JKNitrYVE1WG93RFFZSktvWklodmNOQVFFTEJRQXcKTGpFV01CUUdBMVVFQ2hNTlRYa2dURzlqWVd3c0lFbHVZekVVTUJJR0ExVUVBeE1MY205b2FYUXViRzlqWVd3dwpIaGNOTWpJd05UQTJNVEV6T1RBM1doY05Nak13TlRBMk1URXpPVEEzV2pBdU1SWXdGQVlEVlFRS0V3MU5lU0JNCmIyTmhiQ3dnU1c1ak1SUXdFZ1lEVlFRREV3dHliMmhwZEM1c2IyTmhiRENDQVNJd0RRWUpLb1pJaHZjTkFRRUIKQlFBRGdnRVBBRENDQVFvQ2dnRUJBTmovRG1nbUpNWStHdnN0QnJHY2NKN25pUHYwNFFKc0ROVEIyQnp0Ly9kTgpDQ0gvdkFEclZjcVdJNW1JRkN5ZjBKUEw1bEFWOEluQmtoQ01OTnpxazlta0JjWGFWNVlNSGZHbHAyQjFvUW5KCmVGUW00aUcvajRURVkrNnAxZEh6MHJPejhKVFhjaVY0OUp2TVJuem1zQnV0bzVyR09iNmxMQzJRKzczRHpDb08KNTJ3Q0JtYUI2a0M1aFVtc0Q3aW14SzZ4WC9BLzVESUFCaEExbEFoNVpFdVExRzVXRkMxRUJlbjVyTnRXbWwvZQpPUkEvZW1VYTlLMm54eVNsUXNZMEhqT3U4cmI4dUw3Z2ZsMjBodDBpaGhTcHh2bnA0UVYyL2U2SVAvbE02N0hMCm96dUNjQmE5bXJZR0E1ZFdNTlBFcUw5UGY5WWFVc09kTTVLNkYveDM2UDhDQXdFQUFhTkNNRUF3RGdZRFZSMFAKQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRkNCZ1pSZmZpbVp2QWdQZgp0Zk92STNsTU41WUpNQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUJWWDl6OWVJaklhM0lNM0FpZWVyb0JhK1RSCndRemYrVmprd0pxRk5EZlpnZ2FVNW9Ka1gxQlVycHA0TTJORDVSRFdpVGREMXNLWDJEampPeUJ6R0lWcC9BRjgKSlB4MmE4T0N0MFozNld0ZEg2YTh3NHJhRXpiQk5RVnVCbU5GTGJoeWNxK2RpdUxDNHQ1Z09IaEYxbmhTQnB1dAp2d3p2RFdWTGlSaFFpVy9saENvd1JocE9pa1plMmVOaElLTUJPUEpiaVFYdTBZRzJzeFBRZTZaK0VIdTRncHZ3CmYwSXBHaUVuNG1sNk13YmpNcVhncFRFWENPOGllZTcrYnJ4YnNHWUhtVkt1MlA4VEZ1RzJEK05kMENDSmVwZUoKTDQ0VldLV2RCbjVDVDFFWUFxaGhaTGNvdXdXTDVhQnVLZlZISHN6Y0VRK1NNYmxCTmZ4aG9LTEo1cWgvCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
-
