@@ -1,4 +1,10 @@
+# ITS OBSOLETE NOW RESOURCES ARE MERGED TO DEV-LAB-AWS
+
+https://github.com/rohits-dev/dev-lab-aws
+
 # dev-lab-k8s-aws
+
+
 
 ## Git sync
 
